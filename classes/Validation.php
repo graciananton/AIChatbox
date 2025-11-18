@@ -1,0 +1,44 @@
+<?php
+class Validation{
+    private UserRepository $UserRepository;
+    public function __construct(){
+        $this->UserRepository = new UserRepository();
+    }
+    public function verifyEmail(array $request){
+        $recaptchaSecret = "6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB";
+        $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
+        $recaptchaResponse = $this->request['g-recaptcha-response'] ?? '';
+        $errors = [];
+        $response = file_get_contents($verifyURL . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+        $recaptchaResponse = $request['g-recaptcha-response'] ?? '';
+        if (empty($recaptchaResponse)) {
+                $errors[] = 'g-recaptcha-response';
+        } else {
+                $response = file_get_contents($verifyURL . '?secret=' . $recaptchaSecret . '&response=' . $recaptchaResponse);
+                $responseData = json_decode($response, true);
+                if (isset($responseData['success']) && $responseData['success'] === true) {
+                    $errors[] = 'g-recaptcha-response';
+                } else {
+                    foreach($request as $key=>$value){
+                        if($key != "g-recaptcha-response"){
+                            if((!preg_match('/^[A-Za-z0-9\s.,!?\'":;_-]+$/', $key) && !preg_match('/^[A-Za-z0-9\s.,!?\'":;_-]+$/', $value))){
+                                $errors[] = $key;
+                            }
+                        }
+                    }
+                }
+        }
+        return $errors;
+
+    }
+    public function verifyVerificationCode(string $emailaddress,array $verification_code):bool{
+        $verification_code = implode("",$verification_code);
+        $code = $this->UserRepository->getCodeByEmailAddress($emailaddress,$verification_code);
+        if(is_array($code) && count($code) >= 1){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+}

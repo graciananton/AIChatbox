@@ -1,0 +1,36 @@
+#deleteMessage{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0,0,0,0.5);
+    z-index:1000;
+    visibility:hidden; /* start hidden */
+}
+#message{
+    background:white;
+    padding:30px 50px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+    text-align:left;                     /* left-align everything */
+    width:400px;                         /* optional, for neater layout */
+}
+#message ul{
+    list-style-type: disc;               /* show bullet dots */
+                        padding-left: 20px;                  /* indent bullets */
+                        margin: 10px 0 20px 0;               /* spacing around list */
+                        display: block;                      /* ensure vertical stacking */
+}
+
+#message button{ 
+                            color:white;
+                            border:none;
+                            border-radius:5px;
+                            padding:6px 12px;                /* smaller size */
+                            font-size:0.9em;
+                            cursor:pointer;
+}

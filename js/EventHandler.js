@@ -1,0 +1,8 @@
+class EventHandler{
+    constructor(){
+
+    }
+    displayDeleteAccountMessage(){
+        
+    }
+}
