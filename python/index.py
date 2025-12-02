@@ -13,9 +13,9 @@ qb =QueryBuilder.QueryBuilder()
 if req == "reply":
 
     ai = AIResponseGenerator.AIResponseGenerator(message, chatId, uid)
-    ai.initialize()
-    ai.create_workflow()
-    ai.create_memory()
+    ai.initialize() # sets chatId and intializes chat model
+    ai.create_workflow() # STARTS workflow
+    ai.create_memory() # creates memory checkpoint system to track messages
 
     reply = ai.generateResponse()
 

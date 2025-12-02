@@ -1,13 +1,14 @@
 <?php
 class ErrorFormatter{
     public static function toHTmL($errors):string{
+        
         $html = "";
         if(!empty($errors)){
             $html = "<div class='alert alert-danger'>";
             foreach ($errors as $e) {
-                $html .= "<div>$e</div>";
+                $html .= "<div style='display:inline-block;'>$e,</div> ";
             }
-            $html .= "</div>";
+            $html .= " have errors</div>";
             return $html;
         }
         return $html;

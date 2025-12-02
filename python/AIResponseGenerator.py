@@ -40,11 +40,6 @@ class AIResponseGenerator:
         self.workflow.add_node("model", self.call_model)
         self.workflow.add_edge(START, "model")
 
-    def create_memory(self):
-        # Memory checkpoint system
-        self.memory = MemorySaver()
-        self.app = self.workflow.compile(checkpointer=self.memory)
-
     def call_model(self, state: MessagesState):
         response = self.model.invoke(state["messages"])
         return {"messages": response}
@@ -55,22 +50,24 @@ class AIResponseGenerator:
         return messages or []
 
     def generateResponse(self):
-        previous_messages = self.loadMessages()
-
+        previous_messages = self.loadMessages() # loads all previous messages and responses
+ 
+        # appends all previous messages and responses
         formatted_messages = []
         for message in previous_messages:
             formatted_messages.append(HumanMessage(content=message["msg"]))
             if message.get("response"):
                 formatted_messages.append(AIMessage(content=message["response"]))
 
+        # adds the most recent HumanMessage to the formatted_messages list
         formatted_messages.append(HumanMessage(content=self.message))
 
         response = self.app.invoke(
             {"messages": formatted_messages},
-            config={"configurable": {"thread_id": self.thread_id}},
+            config={"configurable": {"thread_id": self.thread_id}}, # adds a thread_id for the messages
         )
 
-        ai_reply = response['messages'][-1].content
+        ai_reply = response['messages'][-1].content # extracts most recent response from the AI
         return ai_reply
     
         

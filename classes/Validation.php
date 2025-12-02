@@ -18,16 +18,18 @@ class Validation{
                 $responseData = json_decode($response, true);
                 if (isset($responseData['success']) && $responseData['success'] === true) {
                     $errors[] = 'g-recaptcha-response';
-                } else {
+                } 
+        }
                     foreach($request as $key=>$value){
+                        
                         if($key != "g-recaptcha-response"){
-                            if((!preg_match('/^[A-Za-z0-9\s.,!?\'":;_-]+$/', $key) && !preg_match('/^[A-Za-z0-9\s.,!?\'":;_-]+$/', $value))){
+                            $pattern = '/^[A-Za-z0-9\s.,!?\'":;@_\-]+$/';
+                            if (!preg_match($pattern, $key) || !preg_match($pattern, $value)) {
                                 $errors[] = $key;
                             }
                         }
                     }
-                }
-        }
+
         return $errors;
 
     }

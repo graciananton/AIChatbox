@@ -16,22 +16,15 @@
             <script src="https://www.google.com/recaptcha/api.js"></script>
     </head>
     <body style='border:1px solid green;'>
-        hello
         <?php
             error_reporting(E_ALL);
-ini_set('display_errors', 1);
+            ini_set('display_errors', 1);
 
             $files = array_diff(scandir("classes"), array('.', '..'));
-            echo "<pre>";
-            print_r($files);
-            echo "</pre>";
             foreach ($files as $file) {
-                echo "<br/>".$file;
                 require_once "classes/{$file}";
             }
-            echo "after requiring it";
             $_REQUEST['req'] = $_REQUEST['req'] ?? "home";
-            print_r($_REQUEST);
             $Controller = new HomeController($_REQUEST);
             $Controller->process();
         ?>
