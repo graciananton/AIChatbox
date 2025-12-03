@@ -19,7 +19,10 @@ class AIResponseGenerator:
         os.environ["GRPC_VERBOSITY"] = "NONE"
         os.environ["GRPC_CPP_LOG_LEVEL"] = "NONE"
         sys.stdout.reconfigure(encoding='utf-8')
-
+    def create_memory(self):
+        self.memory = MemorySaver()
+        self.app = self.workflow.compile(checkpointer=self.memory)
+        
     def generateTitle(self):
         response = self.model.invoke([
             {"role":"system","content":"Generate a 3-6 word title for the message I give you"},

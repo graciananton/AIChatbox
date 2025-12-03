@@ -91,10 +91,22 @@ class UserView extends View{
                                     <?php for($i=1; $i<7; $i++){ 
                                         $name = "verification_code{$i}";
                                     ?>
-                                    <input type='text' name='<?php echo $name; ?>' value=''
-                                            style='width:8%;height:50px;border-radius:10px;border:1px solid black;'>
+                                    <input type='text' 
+                                           name='<?php echo $name; ?>' 
+                                           value=''
+                                           id='<?php echo $i; ?>'
+                                           style='text-align:center;width:8%;height:50px;border-radius:10px;border:1px solid black;'>
                                     <?php } ?>
                                 </div>
+                                <script>
+                                    document.getElementById("1").addEventListener("input",function(event){
+                                        code_list = event.target.value.split("")
+                                        for(i=0;i<code_list.length;i++){
+                                            console.log(i)
+                                            document.getElementById(`${i+1}`).value = code_list[i]
+                                        }
+                                    })
+                                </script>
                                 <div class='d-flex justify-content-center'>
                                     <input type='submit' value='Submit Verification Code' name='button' class='btn btn-primary'>
                                     <input type='hidden' name='req' value='verification_code_submit'>

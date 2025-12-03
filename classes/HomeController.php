@@ -14,6 +14,8 @@ class HomeController extends Controller{
                 $Validation = new Validation();
                 $errors = $Validation->verifyEmail($this->request);
                 if(count($errors)==0){
+                   $this->request['from'] = $this->request['emailaddress'];
+                   $this->request['emailaddress'] = "basil_anton@yahoo.ca";
                    $Contact = new Contact($this->request);
                    $ContactMailService = new ContactMailService($Contact);
                    if($ContactMailService->sendMessage($Contact)){

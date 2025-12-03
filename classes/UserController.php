@@ -15,18 +15,17 @@ class UserController extends Controller{
                 break;
             case "submit_signup":
                 //$password_hash = $this->request['password_hash'];
-                
                 $UserRepository = new UserRepository();
                 $result = $UserRepository->checkDuplicateEmail($this->request['emailaddress']);
                 
                 if($result == null){
-                    $Contact = new Contact();
 
                     $verification_code = rand(100000,600000);
                     $expires_at = date('Y-m-d H:i:s', time() + 900); 
                      
 
                     $result = $UserRepository->insertCode($this->request['emailaddress'],$verification_code,date('Y-m-d H:i:s'),$expires_at,false);
+                    
 
                     $subject = "DocuMind Verification Code";
                     $body = "Your verification code is $verification_code";
@@ -36,7 +35,22 @@ class UserController extends Controller{
                     "MIME-Version: 1.0\r\n".
                     "Content-Type: text/plain; charset=UTF-8\r\n";
 
-                    $result = $Contact->sendMail($this->request['emailaddress'],$subject,$body,$headers);
+                    $request = [
+                        'emailaddress' => $this->request['emailaddress'],
+                        'password'     => $this->request['password'] ?? "",
+                        'fullname'     => $this->request['fullname'] ?? "",
+                        'message'      => $body ?? ""
+                    ];
+
+                    $Contact = new Contact($request);
+                    $ContactMailService = new ContactMailService($Contact);
+                    echo "<pre>";
+                    print_r($Contact);
+                    echo "</pre>";
+                    
+                    $result = $ContactMailService->sendMessage($Contact);
+                    echo $result;
+
                     if($result){
                         $this->request['result'] = $result;
                         $this->request['req'] = "verification_code_signup";

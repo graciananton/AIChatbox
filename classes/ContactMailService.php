@@ -9,7 +9,7 @@ class ContactMailService implements MailInterface{
                 "MIME-Version: 1.0\r\n".
                 "Content-Type: text/plain; charset=UTF-8\r\n";
 
-        if (mail("basil_anton@yahoo.ca","AI Chatbox",$Contact->getMessage()."<br/><br/><br/>".$Contact->getEmailAddress(),$headers,'-fnoreply@gracian.ca')){
+        if (mail($Contact->getEmailAddress(),"AI Chatbox",$Contact->getMessage()."\n From: ".$Contact->getFrom(),$headers,'-fnoreply@gracian.ca')){
             return true;
         }
         else{

@@ -35,6 +35,7 @@ class UserRepository extends Repository{
     }
     public function insertCode(string $emailaddress,string $verification_code,string $created_at,string $expires_at,bool $verified):bool{
         $sql = $this->QueryBuilder->insertCode();
+        echo $sql;
         return $this->DatabaseManager->execute(
             $sql,
             $params = [
