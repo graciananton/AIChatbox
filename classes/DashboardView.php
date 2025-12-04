@@ -14,7 +14,7 @@ class DashboardView extends View{
 
         <nav class='navbar navbar-expand-lg' style='background-image:linear-gradient(to right,#F0FFFF,#0096FF) !important'>
             <div class='container-fluid'>
-                <a class="navbar-brand">Chatbot</a>
+                <a class="navbar-brand">AI Chatbox</a>
 
                 <button class="navbar-toggler" type="button" 
                         data-bs-toggle="collapse" data-bs-target="#navbar" 
@@ -25,10 +25,10 @@ class DashboardView extends View{
                 <div class='collapse navbar-collapse' id="navbar">
                     <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
                         <li class='nav-item'>
-                            <a class='nav-link' href='?req=basic'>Basic Chatbox</a>
+                            <a class='nav-link' href='#' style='color:black;'>Basic Chatbox</a>
                         </li>
                         <li class='nav-item'>
-                            <button id='deleteAccount' style='background-image:linear-gradient(to right,#F0FFFF,#F0FFFF) !important;'>Delete Account</button>
+                            <a class='nav-link' id='deleteAccount' style='color:black;'>Delete Account</a>
                         </li>
                     </ul>
 

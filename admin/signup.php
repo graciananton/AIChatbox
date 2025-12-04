@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 ?>
 <html>
     <head>
-        <title>DocuMind | SignUp</title>
+        <title>AI Chatbox | SignUp</title>
           <link 
                 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
                 rel="stylesheet" 

@@ -13,7 +13,7 @@ class HomeView extends View{
                 <div class="container-fluid">
                     <nav class="navbar navbar-expand-lg" id='navbar'>
                         <div class="container">
-                            <a class="navbar-brand" href="index.php">DocuMind</a>
+                            <a class="navbar-brand" href="index.php">AI Chatbox</a>
 
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#navbarNav" aria-controls="navbarNav"
