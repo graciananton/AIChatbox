@@ -44,12 +44,8 @@ class UserController extends Controller{
 
                     $Contact = new Contact($request);
                     $ContactMailService = new ContactMailService($Contact);
-                    echo "<pre>";
-                    print_r($Contact);
-                    echo "</pre>";
                     
                     $result = $ContactMailService->sendMessage($Contact);
-                    echo $result;
 
                     if($result){
                         $this->request['result'] = $result;
