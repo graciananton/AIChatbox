@@ -1,18 +1,13 @@
 import mysql.connector
-import platform
-
+from Config import Config
 class DatabaseManager:
     def __init__(self):
-        if platform.system() == "Windows":
-            host="localhost"
-            user="root"
-            password=""
-            database="documind"
-        else:
-            host="db5018917755.hosting-data.io"
-            user="dbu3738302"
-            password="78Agracian#J(L"
-            database="dbs14916465"
+        dbConnection = Config.connection_info()
+
+        host = dbConnection['host']
+        user = dbConnection['user']
+        password = dbConnection['password']
+        database = dbConnection['database']
 
         self.conn =mysql.connector.connect(
             host = host,
