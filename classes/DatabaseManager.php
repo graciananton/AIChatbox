@@ -2,15 +2,16 @@
 class DatabaseManager{
     private object $pdo;
     public function __construct(){
+        $dbConnection = Config::dbConnection();
         if($_SERVER['HTTP_HOST'] == "localhost"){
-            $dsn = 'mysql:host=localhost;dbname=documind;charset=utf8mb4';
-            $user = 'root';
-            $pass = '';        
+            $dsn = $dbConnection['dsn'];
+            $user = $dbConnection['user'];
+            $pass = $dbConnection['pass'];    
         }
         else{
-            $dsn = 'mysql:host=db5018917755.hosting-data.io;dbname=dbs14916465;charset=utf8mb4';
-            $user = 'dbu3738302';
-            $pass = '78Agracian#J(L';
+            $dsn = $dbConnection['dsn'];
+            $user = $dbConnection['user'];
+            $pass = $dbConnection['pass'];  
         }
         $this->pdo = new PDO($dsn, $user, $pass, [
                 PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
