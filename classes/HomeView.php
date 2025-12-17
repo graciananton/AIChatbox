@@ -88,7 +88,7 @@ class HomeView extends View{
                                         <textarea class='form-control' id='message' name='message' rows='3'><?php echo $this->request['message'] ?? '';?></textarea>
                                     </div>
                                     <div class='form-group'>
-                                        <div class="g-recaptcha" data-sitekey="6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB"></div>
+                                        <div class="g-recaptcha" data-sitekey="<?php echo  Config::recaptchaSecret(); ?>"></div>
                                     </div>
                                     <div class='form-group'>
                                         <input type="submit" id="submit" class="form-control" name="submit" value="Send Message"/>

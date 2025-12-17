@@ -17,7 +17,7 @@ class UserController extends Controller{
                 //$password_hash = $this->request['password_hash'];
                 $UserRepository = new UserRepository();
                 $result = $UserRepository->checkDuplicateEmail($this->request['emailaddress']);
-                
+                $ContactMailService = new ContactMailService();
                 if($result == null){
 
                     $verification_code = rand(100000,600000);
@@ -30,10 +30,7 @@ class UserController extends Controller{
                     $subject = "DocuMind Verification Code";
                     $body = "Your verification code is $verification_code";
                     
-                    $headers = "From: noreply@gracian.ca\r\n".
-                    "Reply-To: noreply@gracian.ca\r\n".
-                    "MIME-Version: 1.0\r\n".
-                    "Content-Type: text/plain; charset=UTF-8\r\n";
+                    $headers = $ContactMailService->setHeader();
 
                     $request = [
                         'emailaddress' => $this->request['emailaddress'],

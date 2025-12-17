@@ -4,11 +4,7 @@ class ContactMailService implements MailInterface{
     public function __construct(){
     }
     public function sendMessage(Contact $Contact):bool{
-        $headers = "From: noreply@gracian.ca\r\n".
-                "Reply-To: noreply@gracian.ca\r\n".
-                "MIME-Version: 1.0\r\n".
-                "Content-Type: text/plain; charset=UTF-8\r\n";
-
+        $headers = $this->setHeader();
         if (mail($Contact->getEmailAddress(),"AI Chatbox",$Contact->getMessage()."\n From: ".$Contact->getFrom(),$headers,'-fnoreply@gracian.ca')){
             return true;
         }
@@ -16,4 +12,13 @@ class ContactMailService implements MailInterface{
             return false;
         }
     }   
+    public function setHeader():array{
+        $headers = Config::headers();
+
+        $headers = "From: {$headers['from']}\r\n".
+                "Reply-To: {$headers['reply_top']}\r\n".
+                "MIME-Version: {$headers['mime_version']}\r\n".
+                "Content-Type: {$headers['content_type']}; charset={$headers['charset']}\r\n";
+        return $headers;
+    }
 }

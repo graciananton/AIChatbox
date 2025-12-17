@@ -5,7 +5,7 @@ class Validation{
         $this->UserRepository = new UserRepository();
     }
     public function verifyEmail(array $request){
-        $recaptchaSecret = "6Lf0-pUrAAAAALToG7Pss0k1liYphAH4trea6rvB";
+        $recaptchaSecret = Config::recaptchaSecret();
         $verifyURL = 'https://www.google.com/recaptcha/api/siteverify';
         $recaptchaResponse = $this->request['g-recaptcha-response'] ?? '';
         $errors = [];
