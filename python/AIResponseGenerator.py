@@ -34,7 +34,7 @@ class AIResponseGenerator:
         self.thread_id = f"chat{self.chatId}"
 
         # Model initialization
-        os.environ["GOOGLE_API_KEY"] = "AIzaSyA26EG1w4Ac-CAQautdio8h-D8iv7m4RqQ"
+        os.environ["GOOGLE_API_KEY"] = "AIzaSyC51M8bUk0YEf2AAtxCeoJwjYpIn-w8WBQ"
         self.model = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
     
     def create_workflow(self):
