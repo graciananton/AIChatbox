@@ -1,4 +1,7 @@
 import sys
+from dotenv import load_dotenv
+import os
+from pathlib import Path
 import AIResponseGenerator
 from pprint import pprint
 import DatabaseManager 
@@ -10,6 +13,8 @@ req = sys.argv[4]
 
 db = DatabaseManager.DatabaseManager()
 qb =QueryBuilder.QueryBuilder()
+
+
 if req == "reply":
 
     ai = AIResponseGenerator.AIResponseGenerator(message, chatId, uid)

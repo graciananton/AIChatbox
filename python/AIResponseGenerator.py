@@ -1,13 +1,14 @@
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import START, MessagesState, StateGraph
 from langchain_core.messages import HumanMessage, AIMessage
-from langchain.chat_models import init_chat_model
+from langchain_google_genai import ChatGoogleGenerativeAI
 from pprint import pprint
+from dotenv import load_dotenv
+from pathlib import Path
 import os
 import DatabaseManager, QueryBuilder
 import sys
-
-
+from Config import Config
 class AIResponseGenerator:
     def __init__(self, message, chatId, uid):
         # Database setup
@@ -33,9 +34,10 @@ class AIResponseGenerator:
     def initialize(self):
         self.thread_id = f"chat{self.chatId}"
 
-        # Model initialization
-        os.environ["GOOGLE_API_KEY"] = "AIzaSyC51M8bUk0YEf2AAtxCeoJwjYpIn-w8WBQ"
-        self.model = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
+        load_dotenv(Path(Config.env_file_path()))
+        os.getenv("GOOGLE_API_KEY")
+
+        self.model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
     
     def create_workflow(self):
         # Build LangGraph workflow
